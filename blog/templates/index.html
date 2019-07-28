@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Django Blog</title>
+  </head>
+<body>
+    <h1>DJango Blog</h1>
+    {% for article in articles %}
+        <p>Hey</p>
+        <!-- <p><img src='{{ image.url }}' alt='{{ image.title }}' width='600px' /><br/>
+        <strong>{{ image.title }}</strong> by {{ image.artist }}<br/>
+        Number of Comments: {{ image.comments.count }}
+        
+        <ul>
+            {% for comment in image.comments.all %}
+            <li>'{{ comment.message }}' - {{ comment.name }}</li>
+            {% endfor %}
+        </ul>
+        </p> -->
+    {% endfor %}
+</body>
+</html>
