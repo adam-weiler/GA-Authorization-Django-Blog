@@ -9,7 +9,7 @@ def root(request): # Redirects to http://localhost:8000/home/
 def home_page(request): # http://localhost:8000/home/
     # context = { 'current_time':datetime.now() }
 
-    context = { 'blog_articles': Article.objects.all().order_by('published_date'), 'blog_topics': Topic.objects.all() }
+    context = { 'blog_articles': Article.objects.all().order_by('-published_date'), 'blog_topics': Topic.objects.all() } #The - in published_date means order from newest to oldest.
 
     response = render(request, 'index.html', context)
     return HttpResponse(response)

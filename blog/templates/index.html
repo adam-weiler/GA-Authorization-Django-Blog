@@ -12,7 +12,6 @@
                 <h2>{{ article.title }} - by {{ article.author }}</h2>
                 <p>{{ article.body|safe }}</p>
                 <p><i>First published: {{ article.published_date }}</i></p>
-
                 Topics:
                 <ul>
                     {% for topic in article.topics.all %}
