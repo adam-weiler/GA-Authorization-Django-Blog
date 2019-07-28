@@ -6,18 +6,21 @@
   </head>
 <body>
     <h1>DJango Blog</h1>
-    {% for article in articles %}
-        <p>Hey</p>
-        <!-- <p><img src='{{ image.url }}' alt='{{ image.title }}' width='600px' /><br/>
-        <strong>{{ image.title }}</strong> by {{ image.artist }}<br/>
-        Number of Comments: {{ image.comments.count }}
-        
-        <ul>
-            {% for comment in image.comments.all %}
-            <li>'{{ comment.message }}' - {{ comment.name }}</li>
-            {% endfor %}
-        </ul>
-        </p> -->
+    {% for article in blog_articles %}
+        {% if article.draft == False %}
+            <article>
+                <h2>{{ article.title }} - by {{ article.author }}</h2>
+                <p>{{ article.body|safe }}</p>
+                <p><i>First published: {{ article.published_date }}</i></p>
+
+                Topics:
+                <ul>
+                    {% for topic in article.topics.all %}
+                    <li>{{ topic.topic }}</li>
+                    {% endfor %}
+                </ul>
+            </article>
+        {% endif %}
     {% endfor %}
 </body>
 </html>
