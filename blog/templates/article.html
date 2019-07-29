@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if article.draft == False %}
+        - {{ article.title }}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if article.draft == False %}
+        <article>
+            <h2>{{ article.title }} - by {{ article.author }}</h2>
+            <p>{{ article.body|safe }}</p>
+            <p><i>First published: {{ article.published_date }}</i></p>
+            Topics:
+            <ul>
+                {% for topic in article.topics.all %}
+                <li>{{ topic.topic }}</li>
+                {% endfor %}
+            </ul>
+        </article>
+    {% endif %}
+{% endblock %}

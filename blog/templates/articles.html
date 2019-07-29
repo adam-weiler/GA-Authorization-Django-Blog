@@ -1,14 +1,13 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Django Blog</title>
-  </head>
-<body>
-    <h1>DJango Blog</h1>
+{% extends 'base.html' %}
+
+{% block title %}
+    - All Articles
+{% endblock %}
+
+{% block content %}
     {% for article in blog_articles %}
         {% if article.draft == False %}
-            <article>
+            <p>
                 <h2>{{ article.title }} - by {{ article.author }}</h2>
                 <p>{{ article.body|safe }}</p>
                 <p><i>First published: {{ article.published_date }}</i></p>
@@ -18,8 +17,7 @@
                     <li>{{ topic.topic }}</li>
                     {% endfor %}
                 </ul>
-            </article>
+            </p>
         {% endif %}
     {% endfor %}
-</body>
-</html>
+{% endblock %}

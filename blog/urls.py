@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from blog.views import root, home_page
+from blog.views import *
 
 urlpatterns = [
     path('', root), #Redirect
     path('admin/', admin.site.urls),
-    path('home/', home_page), #Page
+    # path('home/', home_page),
+    path('articles/', articles_page),
+    path('article/<int:id>', article_show, name='article_details'), #Dynamic route containing the primary key of the selected article.
 ]
