@@ -7,17 +7,7 @@
 {% block content %}
     {% for article in blog_articles %}
         {% if article.draft == False %}
-            <p>
-                <h2>{{ article.title }} - by {{ article.author }}</h2>
-                <p>{{ article.body|safe }}</p>
-                <p><i>First published: {{ article.published_date }}</i></p>
-                Topics:
-                <ul>
-                    {% for topic in article.topics.all %}
-                    <li>{{ topic.topic }}</li>
-                    {% endfor %}
-                </ul>
-            </p>
+            <p><strong><a href="{% url 'article_details' id=article.pk %}">{{ article.title }}</a></strong> - {{ article.published_date }}</i></p>
         {% endif %}
     {% endfor %}
 {% endblock %}
