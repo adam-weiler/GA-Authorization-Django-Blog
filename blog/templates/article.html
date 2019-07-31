@@ -42,6 +42,12 @@
                 {{ form.as_p }}
             
             </form>
+            <p>Number of Comments: {{ article.comments.count }}</p>
+            <ul>
+                {% for comment in article.comments.all %}
+                    <li>💻'{{ comment.message }} - {{ comment.name }}</li>
+                {% endfor %}
+            </ul>
         </article>
     {% endif %}
 {% endblock %}

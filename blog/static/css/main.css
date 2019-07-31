@@ -34,6 +34,10 @@ main p {
     padding: 0; 
 }
 
+li {
+    /* list-style-type: none; */
+}
+
 footer {
     bottom: 0px;
     width: 100%;
