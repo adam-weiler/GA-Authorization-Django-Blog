@@ -19,5 +19,29 @@
                 {% endfor %}
             </ul>
         </article>
+        <article>
+            <form action = "{% url 'create_comment' %}" method="post">
+
+                {% csrf_token %}
+
+                <input type="hidden" name="picture" value="{{ article.pk }}">
+
+                <div>
+                    <label for="">Name:</label>
+                    <input id="name" type="text" name="name" />
+                </div>
+                <div>
+                    <label for="">Message:</label>
+                    <input id="message" type="text" name="message" />
+                </div>
+                <div>
+                    <input type="submit" name="submit" value="Submit">
+                    <input type="reset" name="reset" value="Reset">
+                </div>
+            
+                {{ form.as_p }}
+            
+            </form>
+        </article>
     {% endif %}
 {% endblock %}

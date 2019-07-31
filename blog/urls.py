@@ -23,4 +23,5 @@ urlpatterns = [
     # path('home/', home_page),
     path('articles/', articles_page),
     path('article/<int:id>', article_show, name='article_details'), #Dynamic route containing the primary key of the selected article.
+    path('comments/new', create_comment, name='create_comment'),
 ]

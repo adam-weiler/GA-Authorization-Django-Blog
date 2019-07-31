@@ -23,3 +23,6 @@ def article_show(request, id):
 
     response = render(request, 'article.html', context)
     return HttpResponse(response)
+
+def create_comment(request):
+    pass
