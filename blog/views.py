@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from blog.models import Article, Topic #Importing the classes from models.py file.
+from blog.models import Article, Topic, Comment #Importing the classes from models.py file.
 
 def root(request): # Redirects to http://localhost:8000/home/
     return HttpResponseRedirect('/home')
@@ -25,4 +25,16 @@ def article_show(request, id):
     return HttpResponse(response)
 
 def create_comment(request):
-    pass
+    new_comment = Comment()
+    article_id = request.POST['article']
+    article = Article.objects.get(pk=article_id)
+
+    new_comment.name = request.POST['name']
+    new_comment.message = request.POST['message']
+    new_comment.article = article #Sets the foreign key as the article object.
+
+    new_comment.save()
+
+    context = {'article': article}
+    response = render(request, 'article.html', context)
+    return HttpResponse(response)
