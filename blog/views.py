@@ -28,6 +28,22 @@ def show_article(request, id): #Load a single article page based on id.
         'form': form
     })
 
+
+
+def new_article(request):
+    form = ArticleForm()
+    context = {"form": form}
+    return render(request, "article_form.html", context)
+
+
+def create_article(request):
+    form = ArticleForm(request.POST)
+
+    form.save()
+    return redirect(reverse("show_all"))
+
+
+
 def create_comment(request, article_id):
     article = Article.objects.get(pk=article_id)
     form = CommentForm(request.POST)

@@ -15,7 +15,7 @@ class Article(models.Model):
     #     Topic, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"title = {self.title}"
+        return f"'{self.title}' - by {self.author}'"
 
 class Topic(models.Model):
     topic = models.CharField(max_length=255)
@@ -32,6 +32,11 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'\'{self.message}\' - {self.name}'
+
+class ArticleForm(ModelForm):
+    class Meta:
+        model = Article
+        fields = ['title', 'body', 'draft', 'author']
 
 class CommentForm(ModelForm):
     class Meta:
