@@ -19,35 +19,25 @@
                 {% endfor %}
             </ul>
         </article>
-        <article>
-            <form action = "{% url 'create_comment' %}" method="post">
-
-                {% csrf_token %}
-
-                <input type="hidden" name="article" value="{{ article.pk }}">
-
-                <div>
-                    <label for="">Name:</label>
-                    <input id="name" type="text" name="name" />
-                </div>
-                <div>
-                    <label for="">Message:</label>
-                    <input id="message" type="text" name="message" />
-                </div>
-                <div>
-                    <input type="submit" name="submit" value="Submit">
-                    <input type="reset" name="reset" value="Reset">
-                </div>
-            
-                {{ form.as_p }}
-            
-            </form>
+        <section>
             <p>Number of Comments: {{ article.comments.count }}</p>
             <ul>
                 {% for comment in article.comments.all %}
                     <li>💻'{{ comment.message }} - {{ comment.name }}</li>
                 {% endfor %}
             </ul>
-        </article>
+        </section>
+        <section>
+            <form action = "{% url 'create_comment' article_id=article.pk %}" method="POST">
+
+                {% csrf_token %}
+
+                <!-- <input type="hidden" name="article" value="{{ article.pk }}"> -->
+
+                {{ form.as_p }}
+                <input type="submit" name="submit" value="Submit">
+                <input type="reset" name="reset" value="Reset">
+            </form>
+        </section>
     {% endif %}
 {% endblock %}

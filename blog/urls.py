@@ -15,13 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from blog.views import *
+from blog import views
 
 urlpatterns = [
-    path('', root), #Redirect
+    path('', views.root), #Redirect
     path('admin/', admin.site.urls),
     # path('home/', home_page),
-    path('articles/', articles_page),
-    path('article/<int:id>', article_show, name='article_details'), #Dynamic route containing the primary key of the selected article.
-    path('comments/new', create_comment, name='create_comment'),
+    path('articles/', views.show_all, name="show_all"),
+    path('articles/<int:id>', views.show_article, name='show_article'), #Dynamic route containing the primary key of the selected article.
+    path('articles/<int:article_id>/comments/new', views.create_comment, name='create_comment'),
 ]
