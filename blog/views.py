@@ -39,8 +39,12 @@ def new_article(request):
 def create_article(request):
     form = ArticleForm(request.POST)
 
-    form.save()
-    return redirect(reverse("show_all"))
+    if form.is_valid():
+        form.save()
+        return redirect(reverse("show_all"))
+    else:
+        context = {"form": form}
+        return render(request, "article_form.html", context)
 
 
 
