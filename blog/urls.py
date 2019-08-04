@@ -20,7 +20,7 @@ from blog import views
 urlpatterns = [
     path('', views.root), #Redirect
     path('admin/', admin.site.urls),
-    # path('home/', home_page),
+    path('home/', views.home_page, name='home_page'),
     path('articles/', views.show_all, name='show_all'),
     path('articles/<int:id>', views.show_article, name='show_article'), #Dynamic route containing the primary key of the selected article.
 

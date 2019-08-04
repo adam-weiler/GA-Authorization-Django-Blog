@@ -7,7 +7,9 @@
 {% block content %}
     {% for article in blog_articles %}
         {% if article.draft == False %}
-            <p><strong><a href="{% url 'show_article' id=article.pk %}">{{ article.title }}</a></strong> - {{ article.published_date }}</i></p>
+            <p>
+                <strong><a href="{% url 'show_article' id=article.pk %}">{{ article.title }}</a></strong> - {{ article.published_date }}</i>
+            </p>
         {% endif %}
     {% endfor %}
 {% endblock %}
