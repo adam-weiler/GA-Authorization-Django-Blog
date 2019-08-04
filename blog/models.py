@@ -77,15 +77,31 @@ class ArticleForm(ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        
-        
+
+        is_draft = cleaned_data.get('draft')
+
         pub_date = cleaned_data.get('published_date')
         today = date.today()
 
-        if pub_date > today:
-            self.add_error(
-                'published_date', 'Published articles cannot have a future date.'
-            )
+
+        if is_draft is True:
+            if pub_date < today:
+                self.add_error(
+                    'published_date', 'Draft articles cannot have a past date.'
+                )
+            #published date must be in future.
+        else: #Else is_draft is false.
+            
+            #published date must be in the past.
+            if pub_date > today:
+                self.add_error(
+                    'published_date', 'Published articles cannot have a future date.'
+                )
+        
+        
+
+
+        
 
 
 
