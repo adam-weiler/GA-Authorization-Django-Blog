@@ -1,7 +1,8 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from blog.models import * #Importing the classes from models.py file.
+from blog.models import Article, Topic, Comment
+from blog.forms import ArticleForm, CommentForm
 
 
 def root(request): # Redirects to http://localhost:8000/home/
@@ -52,6 +53,7 @@ def create_article(request):  # User creating a new article.
         return render(request, 'article_form.html', {
             'form': form
         })
+        # return redirect(reverse('new_article')) #How do you reverse and attach a form..?
 
 
 def create_comment(request, article_id):  # Renders a form to create a new comment.
