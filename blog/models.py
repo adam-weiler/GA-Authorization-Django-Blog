@@ -1,11 +1,5 @@
-# from datetime import date, datetime
-
 from django.db import models
-# from django.forms import DateInput, ModelForm
-# from django.utils import timezone # Needed for timezone.localtime()
 from django.core.validators import (MinLengthValidator,)
-
-# from django import forms
 
 
 class Article(models.Model):
@@ -14,7 +8,7 @@ class Article(models.Model):
         validators=[MinLengthValidator(1)]
     )
     draft = models.BooleanField(default=False)    
-    published_date = models.DateField(null=True) #This works
+    published_date = models.DateField(null=True)
     author = models.CharField(max_length=255)
 
     def __str__(self):
@@ -37,7 +31,4 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'\'{self.message}\' - {self.name}'
-
-
-
 

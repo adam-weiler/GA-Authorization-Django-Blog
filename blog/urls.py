@@ -18,14 +18,12 @@ from django.urls import path
 from blog import views
 
 urlpatterns = [
-    path('', views.root), #Redirect
+    path('', views.root),  # Redirect to all articles.
     path('admin/', admin.site.urls),
-    path('home/', views.home_page, name='home_page'),
-    path('articles/', views.show_all, name='show_all'),
-    path('articles/<int:article_id>', views.show_article, name='show_article'), #Dynamic route containing the primary key of the selected article.
-
-    path('articles/new', views.new_article, name='new_article'),
-    path('articles/create', views.create_article, name='create_article'),
-
-    path('articles/<int:article_id>/comments/new', views.create_comment, name='create_comment'),
+    # path('home/', views.home_page, name='home_page'),
+    path('articles/', views.show_all, name='show_all'),  # Show all articles.
+    path('articles/<int:article_id>', views.show_article, name='show_article'),  # Show 1 article.
+    path('articles/new', views.new_article, name='new_article'),  # Form to create a new article.
+    path('articles/create', views.create_article, name='create_article'),  # Saving new article.
+    path('articles/<int:article_id>/comments/new', views.create_comment, name='create_comment'),  # Saving a new comment.
 ]

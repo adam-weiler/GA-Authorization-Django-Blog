@@ -5,28 +5,17 @@ from blog.models import Article, Topic, Comment
 from blog.forms import ArticleForm, CommentForm
 
 
-def root(request): # Redirects to http://localhost:8000/home/
-    return HttpResponseRedirect('/home')
-
-
-def home_page(request): # http://localhost:8000/home/
-    # context = { 'blog_articles': Article.objects.all().order_by('-published_date'), 'blog_topics': Topic.objects.all() } #The - in published_date means order from newest to oldest.
-
-    # response = render(request, 'index.html', context)
-    # return HttpResponse(response)
-    return redirect(reverse('show_all'))
+def root(request): # Redirects to http://localhost:8000/articles
+    return redirect(reverse("show_all"))
 
 
 def show_all(request):  # Renders a list of all articles.
     context = { 'blog_articles': Article.objects.all().order_by('-published_date'), 'blog_topics': Topic.objects.all() } #The - in published_date means order from newest to oldest.
-
-    response = render(request, 'articles.html', context)
-    return HttpResponse(response)
+    return render(request, "articles.html", context)
 
 
-
-def show_article(request, id):  # Renders a single article.
-    article = Article.objects.get(pk=id)
+def show_article(request, article_id):  # Renders a single article.
+    article = Article.objects.get(pk=article_id)
     form = CommentForm()
 
     return render(request, 'article.html', {
