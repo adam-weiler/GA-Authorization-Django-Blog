@@ -1,6 +1,11 @@
-from django.http import HttpResponse, HttpResponseRedirect
+# from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.urls import reverse
+
+
 from blog.models import Article, Topic, Comment
 from blog.forms import ArticleForm, CommentForm
 
@@ -24,6 +29,7 @@ def show_article(request, article_id):  # Renders a single article.
     })
 
 
+@login_required
 def new_article(request):  # Renders a form to create a new article.
     form = ArticleForm()
 
@@ -32,6 +38,7 @@ def new_article(request):  # Renders a form to create a new article.
     })
 
 
+@login_required
 def create_article(request):  # User creating a new article.
     form = ArticleForm(request.POST)
 
@@ -60,4 +67,21 @@ def create_comment(request, article_id):  # Renders a form to create a new comme
             'form': form
         })
 
+
+def signup(request):  # Renders a form for a new user to signup.
+    form = UserCreationForm()
+    context = { 'form': form }
+    return render(request, 'registration/signup.html', {
+        'form': form
+    })
+
+
+def signup_create(request):
+    pass
+
+
+
+def logout_view(request):
+    logout(request)
+    return redirect(reverse('root'))
     

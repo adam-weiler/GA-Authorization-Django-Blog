@@ -12,6 +12,17 @@
 <body>
     <header>
         <h1>Django Blog</h1>
+        <ul>
+            {% if request.user.is_authenticated %}
+                <li>Logged in as {{ request.user.username }}</li>
+                <li><a href="{% url 'new_article' %}" >Write a new article</a></li>
+                <li><a href="{% url 'logout' %}" >Log out</a></li>
+            {% else %}
+                <li><a href="{% url 'signup' %}" >Sign up</a></li>
+                <li><a href="{% url 'login' %}" >Login</a></li>
+            {% endif %}
+        </ul>
+
     </header>
     <main>
         {% block content %}
