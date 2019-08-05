@@ -18,15 +18,15 @@ from django.urls import include, path
 from blog import views
 
 urlpatterns = [
-    path('', views.root),  # Redirect to all articles.
-    path('admin/', admin.site.urls),
-    # path('home/', views.home_page, name='home_page'),
-    path('accounts/signup', views.signup, name='signup'),
-    path('accounts/signup_create', views.signup_create, name='signup_create'),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('articles/', views.show_all, name='show_all'),  # Show all articles.
-    path('articles/<int:article_id>', views.show_article, name='show_article'),  # Show 1 article.
+    path('', views.index, name='index'),  # Redirect to all articles.
     path('articles/new', views.new_article, name='new_article'),  # Form to create a new article.
     path('articles/create', views.create_article, name='create_article'),  # Saving new article.
+    # path('home/', views.home_page, name='home_page'),
+    path('articles/', views.show_all, name='show_all'),  # Show all articles.
+    path('articles/<int:article_id>', views.show_article, name='show_article'),  # Show 1 article.
     path('articles/<int:article_id>/comments/new', views.create_comment, name='create_comment'),  # Saving a new comment.
+    path('admin/', admin.site.urls),
+    path('accounts/signup', views.signup, name='signup'),  # Form to signup for new account.
+    path('accounts/signup_create', views.signup_create, name='signup_create'),  # Saving a new account.
+    path('accounts/', include('django.contrib.auth.urls')),
 ]

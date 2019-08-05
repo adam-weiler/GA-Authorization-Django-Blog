@@ -1,5 +1,5 @@
 # from django.http import HttpResponse, HttpResponseRedirect
-from django.contrib.auth import login, logout
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
@@ -10,7 +10,7 @@ from blog.models import Article, Topic, Comment
 from blog.forms import ArticleForm, CommentForm
 
 
-def root(request): # Redirects to http://localhost:8000/articles
+def index(request): # Redirects to http://localhost:8000/articles
     return redirect(reverse("show_all"))
 
 
@@ -76,7 +76,7 @@ def signup(request):  # Renders a form for a new user to signup.
     })
 
 
-def signup_create(request):  # Creates a new user if valid.
+def signup_create(request):  # Creates a new user if request is valid.
     form = UserCreationForm(request.POST)
 
     if form.is_valid():
@@ -87,6 +87,35 @@ def signup_create(request):  # Creates a new user if valid.
         return render(request, 'registration/signup.html', {
             'form': form
         })
+
+
+def login_view(request):  # Logins in user if request is valid.
+    if request.user.is_autheticated:
+        return redirect(reverse('user_profile'))
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            pw = form.cleaned_data['password']
+            user = authenticate(username=username, password=pw)
+
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return redirect(reverse('home'))
+                else:
+                    form.add_error('username', 'This account has been disabled.')
+            else:
+                form.add_error('username', 'Login failed')
+    else:
+        form = LoginForm()
+
+    return render(request, 'login.html', {
+        'form': form
+    })
+    
+
         
 
 
