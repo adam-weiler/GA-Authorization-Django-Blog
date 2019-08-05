@@ -17,7 +17,10 @@ def home_page(request): # http://localhost:8000/home/
 
 
 def show_all(request):  # Renders a list of all articles.
-    pass
+    context = { 'blog_articles': Article.objects.all().order_by('-published_date'), 'blog_topics': Topic.objects.all() } #The - in published_date means order from newest to oldest.
+
+    response = render(request, 'articles.html', context)
+    return HttpResponse(response)
 
 
 

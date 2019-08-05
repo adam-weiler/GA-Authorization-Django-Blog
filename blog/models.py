@@ -14,7 +14,7 @@ class Article(models.Model):
         validators=[MinLengthValidator(1)]
     )
     draft = models.BooleanField(default=False)    
-    published_date = models.DateField(default=datetime.today(), null=True) #This works
+    published_date = models.DateField(null=True) #This works
     author = models.CharField(max_length=255)
 
     def __str__(self):
