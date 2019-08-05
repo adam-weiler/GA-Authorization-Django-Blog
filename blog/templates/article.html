@@ -9,7 +9,7 @@
 {% block content %}
     {% if article.draft == False %}
         <article>
-            <h2>{{ article.title }} - by {{ article.author }}</h2>
+            <h2>{{ article.title }} - by {{ article.user }}</h2>
             <p>{{ article.body|safe }}</p>
             <p><i>First published: {{ article.published_date }}</i></p>
             Topics:
