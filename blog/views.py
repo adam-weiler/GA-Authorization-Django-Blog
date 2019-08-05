@@ -70,18 +70,28 @@ def create_comment(request, article_id):  # Renders a form to create a new comme
 
 def signup(request):  # Renders a form for a new user to signup.
     form = UserCreationForm()
-    context = { 'form': form }
+    # context = { 'form': form }
     return render(request, 'registration/signup.html', {
         'form': form
     })
 
 
-def signup_create(request):
-    pass
+def signup_create(request):  # Creates a new user if valid.
+    form = UserCreationForm(request.POST)
+
+    if form.is_valid():
+        new_user = form.save()
+        login(request, new_user)
+        return redirect(reverse("show_all"))
+    else:  # Else sends user back to signup page.
+        return render(request, 'registration/signup.html', {
+            'form': form
+        })
+        
 
 
 
 def logout_view(request):
     logout(request)
-    return redirect(reverse('root'))
+    return redirect(reverse("show_all"))
     
