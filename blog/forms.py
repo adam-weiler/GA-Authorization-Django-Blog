@@ -13,9 +13,21 @@ class ArticleForm(ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
+        new_title = cleaned_data.get('title')
+        new_body = cleaned_data.get('body')
         is_draft = cleaned_data.get('draft')
         pub_date = cleaned_data.get('published_date')
         today = date.today()
+
+        if len(new_title) < 10:
+            self.add_error(
+                'title', 'Article title must be longer than 10 characters.'
+            )
+
+        if len(new_body) < 10:
+            self.add_error(
+                'body', 'Article body must be longer than 10 characters.'
+            )
         
         if pub_date == None: #If user didn't enter a date, it defaults to today.
             pub_date = today
