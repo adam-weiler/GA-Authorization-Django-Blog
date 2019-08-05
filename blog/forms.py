@@ -6,7 +6,8 @@ from blog.models import Article, Comment
 class ArticleForm(ModelForm):
     class Meta:
         model = Article
-        fields = ['title', 'body', 'draft', 'published_date', 'author']
+        # fields = ['title', 'body', 'draft', 'published_date', 'author']
+        fields = ['title', 'body', 'draft', 'published_date']
         widgets = {
             'published_date': DateInput()
         }

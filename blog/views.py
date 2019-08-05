@@ -43,7 +43,11 @@ def create_article(request):  # User creating a new article.
     form = ArticleForm(request.POST)
 
     if form.is_valid():
-        form.save()
+        # form.save()
+        new_article = form.save(commit=False)
+        new_article.user = request.user
+        new_article.save()
+
         return redirect(reverse('show_all'))
     else:  # Else sends user back to article_form page.
         return render(request, 'article_form.html', {
