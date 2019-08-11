@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Django Blog{% block title %}{% endblock %}</title>
+    <title>
+        Django Blog{% block title %}{% endblock %}
+    </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
@@ -18,8 +20,8 @@
                 <li><a href="{% url 'new_article' %}" >Write a new article</a></li>
                 <li><a href="{% url 'logout' %}" >Log out</a></li>
             {% else %}
-                <li><a href="{% url 'signup' %}" >Sign up</a></li>
                 <li><a href="{% url 'login' %}" >Login</a></li>
+                <li><a href="{% url 'signup' %}" >Sign up</a></li> 
             {% endif %}
         </ul>
 

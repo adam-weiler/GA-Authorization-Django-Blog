@@ -6,11 +6,12 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 
 
+
 from blog.models import Article, Topic, Comment
-from blog.forms import ArticleForm, CommentForm
+from blog.forms import ArticleForm, CommentForm, LoginForm
 
 
-def index(request): # Redirects to http://localhost:8000/articles
+def root(request): # Redirects to http://localhost:8000/articles
     return redirect(reverse("show_all"))
 
 
@@ -73,29 +74,43 @@ def create_comment(request, article_id):  # Renders a form to create a new comme
 
 
 def signup(request):  # Renders a form for a new user to signup.
-    form = UserCreationForm()
-    # context = { 'form': form }
+    if request.user.is_authenticated:
+        return redirect(reverse("show_all"))
+
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.clenaed_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect(reverse('show_all'))
+    else:
+        form = UserCreationForm()
+
     return render(request, 'registration/signup.html', {
         'form': form
     })
 
 
-def signup_create(request):  # Creates a new user if request is valid.
-    form = UserCreationForm(request.POST)
+# def signup_create(request):  # Creates a new user if request is valid.
+#     form = UserCreationForm(request.POST)
 
-    if form.is_valid():
-        new_user = form.save()
-        login(request, new_user)
-        return redirect(reverse("show_all"))
-    else:  # Else sends user back to signup page.
-        return render(request, 'registration/signup.html', {
-            'form': form
-        })
+#     if form.is_valid():
+#         new_user = form.save()
+#         login(request, new_user)
+#         return redirect(reverse("show_all"))
+#     else:  # Else sends user back to signup page.
+#         return render(request, 'registration/signup.html', {
+#             'form': form
+#         })
 
 
 def login_view(request):  # Logins in user if request is valid.
-    if request.user.is_autheticated:
-        return redirect(reverse('user_profile'))
+    if request.user.is_authenticated:
+        return redirect(reverse('show_all'))
+
     if request.method == 'POST':
         form = LoginForm(request.POST)
         
@@ -107,7 +122,7 @@ def login_view(request):  # Logins in user if request is valid.
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return redirect(reverse('home'))
+                    return redirect(reverse('show_all'))
                 else:
                     form.add_error('username', 'This account has been disabled.')
             else:
@@ -115,7 +130,7 @@ def login_view(request):  # Logins in user if request is valid.
     else:
         form = LoginForm()
 
-    return render(request, 'login.html', {
+    return render(request, 'registration/login.html', {
         'form': form
     })
     

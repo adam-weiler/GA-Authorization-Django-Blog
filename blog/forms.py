@@ -1,5 +1,5 @@
 from datetime import date
-from django.forms import DateInput, ModelForm
+from django.forms import CharField, DateInput, Form, ModelForm, PasswordInput
 from blog.models import Article, Comment
 
 
@@ -49,4 +49,9 @@ class CommentForm(ModelForm):
     class Meta:
         model = Comment
         fields = ['name', 'message']
+
+
+class LoginForm(Form):
+    username = CharField(label="User Name", max_length=64)
+    password = CharField(widget=PasswordInput())
 
