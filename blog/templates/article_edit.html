@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+- Edit article - {{ article.title }} by {{ article.artist }}
+{% endblock %}
+
+{% block main_class %}individual{% endblock %}
+
+{% block content %}
+    <h2>Editing {{ article.title }}:</h2>
+
+    <section>
+        <form action = "{% url 'article_edit' article_id %}" method="POST">
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+            <input type="submit" name="submit" value="Submit">
+        </form>
+    </section>
+{% endblock %}

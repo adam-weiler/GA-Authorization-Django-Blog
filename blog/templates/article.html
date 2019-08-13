@@ -7,10 +7,15 @@
 {% endblock %}
 
 {% block content %}
-    {% if article.draft == False %}
+    {% if article.draft == False %} 
         <article>
             <h2>{{ article.title }} - by {{ article.user }}</h2>
-            <p>{{ article.body|safe }}</p>
+            {% if request.user == article.user %}
+                <p>
+                    <a href="{% url 'article_edit' article_id=article.pk %}">Edit</a>
+                </p>
+            {% endif %}
+            <p>{{ article.body }}</p>
             <p><i>First published: {{ article.published_date }}</i></p>
             Topics:
             <ul>

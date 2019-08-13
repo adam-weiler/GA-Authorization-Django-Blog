@@ -34,9 +34,6 @@ urlpatterns = [
     # path('home/', views.home_page, name='home_page'),
     
     path('articles/<int:article_id>', views.show_article, name='show_article'),  # Show 1 article.
+    path('articles/<int:article_id>/edit', views.article_edit, name='article_edit'),  # Edits current article, if owner.
     path('articles/<int:article_id>/comments/new', views.create_comment, name='create_comment'),  # Saving a new comment.
-
-
-    
-
 ]
